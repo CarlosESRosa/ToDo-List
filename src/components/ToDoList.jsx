@@ -28,12 +28,13 @@ class Teste extends React.Component {
     console.log(this.state.myTasks);
   }
 
-  removeLine(event) {
-    console.log(event.target.myTasks);
-    const newArray = this.state.myTasks.filter((task) => task.id !== event.target.id)
+  removeLine(id) {
+    console.log(id);
+    const newArray = this.state.myTasks.filter((task) => task.id !== id)
     this.setState((state) => ({
       myTasks: [...newArray]
     }))
+
   }
 
 
@@ -44,7 +45,10 @@ class Teste extends React.Component {
         <button onClick={this.handleClick}>ADD</button>
         <ul>
           {this.state.myTasks.map((task) => {
-            return <li key={task.id}>{task.value} <button onClick={this.removeLine}>remove</button></li>
+            return <li key={task.id}>
+              {task.value}
+              <button onClick={() => this.removeLine(task.id)}>remove</button>
+            </li>
           })}
         </ul>
       </>
