@@ -28,8 +28,12 @@ class Teste extends React.Component {
     console.log(this.state.myTasks);
   }
 
-  removeLine() {
-    console.log('removeLine');
+  removeLine(event) {
+    console.log(event.target.myTasks);
+    const newArray = this.state.myTasks.filter((task) => task.id !== event.target.id)
+    this.setState((state) => ({
+      myTasks: [...newArray]
+    }))
   }
 
 
