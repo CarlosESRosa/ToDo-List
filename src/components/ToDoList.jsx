@@ -1,4 +1,5 @@
 import React from 'react';
+import './toDoList.css'
 
 class Teste extends React.Component {
   constructor() {
@@ -52,22 +53,32 @@ class Teste extends React.Component {
 
   render() {
     return (
-      <>
-        <input
-          onChange={this.handleChange}
-          placeholder='Adicione uma tarefa'
-          onKeyUp={(e) => {
-            if (e.key === 'Enter' && this.state.inputValue !== '') {
-              this.handleClick()
-            }
-          }}
-          value={this.state.inputValue}
-        />
-        <button onClick={this.handleClick}>ADD</button>
-        <ul>
+      <div className='todo-list'>
+        <header className='input-container'>
+          <h1>My to.do list</h1>
+          <div className='inputs'>
+            <input
+              onChange={this.handleChange}
+              placeholder='Adicione uma tarefa'
+              onKeyUp={(e) => {
+                if (e.key === 'Enter' && this.state.inputValue !== '') {
+                  this.handleClick()
+                }
+              }}
+              value={this.state.inputValue}
+            />
+            <button onClick={this.handleClick}>
+              <i className="far fa-check-square"></i>
+            </button>
+          </div>
+        </header>
+        <ul >
           {this.state.myTasks.map((task) => {
             return <li key={task.id}>
-              <div className={task.isCompleted ? 'isCompleted' : ''}>
+              <div
+                className={task.isCompleted ? 'isCompleted' : ''}
+                data-task="task"
+              >
                 <input
                   type="checkbox"
                   onClick={() => this.handleCheckTask(task.id)}
@@ -78,7 +89,7 @@ class Teste extends React.Component {
             </li>
           })}
         </ul>
-      </>
+      </div>
     )
   }
 }
