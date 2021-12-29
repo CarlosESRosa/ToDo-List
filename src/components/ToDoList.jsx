@@ -56,7 +56,7 @@ class Teste extends React.Component {
       <div className=''>
         <header className='input-container'>
           <h1>My to.do list</h1>
-          <div className='inputs'>
+          <div className='add-element'>
             <input
               onChange={this.handleChange}
               placeholder='Adicione uma tarefa'
@@ -72,23 +72,29 @@ class Teste extends React.Component {
             </button>
           </div>
         </header>
-        <ul >
-          {this.state.myTasks.map((task) => {
-            return <li key={task.id}>
-              <div
-                className={task.isCompleted ? 'isCompleted' : ''}
-                data-task="task"
-              >
-                <input
-                  type="checkbox"
-                  onClick={() => this.handleCheckTask(task.id)}
-                />
-                {task.value}
-              </div>
-              <button onClick={() => this.removeLine(task.id)}>remove</button>
-            </li>
-          })}
-        </ul>
+        <div className="element-list">
+          <ul >
+            {this.state.myTasks.map((task) => {
+              return (
+                <div >
+                  <li key={task.id}>
+                    <div
+                      className={task.isCompleted ? 'isCompleted' : ''}
+                      data-task="task"
+                    >
+                      <input
+                        type="checkbox"
+                        onClick={() => this.handleCheckTask(task.id)}
+                      />
+                      <span>{task.value}</span>
+                    </div>
+                    <button onClick={() => this.removeLine(task.id)}><i class="fas fa-trash"></i></button>
+                  </li>
+                </div>
+              )
+            })}
+          </ul>
+        </div>
       </div>
     )
   }
