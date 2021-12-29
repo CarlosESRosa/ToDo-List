@@ -30,6 +30,7 @@ h1 {
 }
 
 .add-element button {
+  font-size: 1.125rem;
   padding: 7px 14px;
   background-color: #00b0ff;
   border: none;

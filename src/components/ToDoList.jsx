@@ -8,6 +8,8 @@ class Teste extends React.Component {
     this.state = {
       inputValue: '',
       myTasks: [],
+      disabled: true,
+      editInputValue: '',
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -15,6 +17,7 @@ class Teste extends React.Component {
     this.removeLine = this.removeLine.bind(this);
     this.handleCheckTask = this.handleCheckTask.bind(this);
     this.editLine = this.editLine.bind(this);
+    this.editHandleChange = this.editHandleChange.bind(this);
   }
 
   handleChange(event) {
@@ -39,9 +42,19 @@ class Teste extends React.Component {
     }))
   }
 
-  editLine(event) {
-    console.log(event.target.disabled);
-    event.target.disabled = !event.target.disabled;
+  editLine(id) {
+    this.setState({
+      disabled: !this.state.disabled,
+      otherInputValue: '',
+    })
+    const changingTask = this.state.myTasks.find((task) => task.id === id)
+    changingTask.value = this.state.otherInputValue;
+  }
+
+  editHandleChange(event) {
+    this.setState((state) => ({
+      otherInputValue: event.target.value,
+    }))
   }
 
   handleCheckTask(id) {
@@ -54,7 +67,6 @@ class Teste extends React.Component {
       myTasks: [...checkedTasks],
     }))
   }
-
 
   render() {
     return (
@@ -78,7 +90,7 @@ class Teste extends React.Component {
           </div>
         </header>
         <div className="element-list">
-          <ul >
+          <ul>
             {this.state.myTasks.map((task) => {
               return (
                 <div >
@@ -91,10 +103,20 @@ class Teste extends React.Component {
                         type="checkbox"
                         onClick={() => this.handleCheckTask(task.id)}
                       />
-                      <input id='input-text' type="text" value={task.value} disabled={true}></input>
+                      <input
+                        id='input-text'
+                        type="text"
+                        onChange={(event) => this.editHandleChange(event)}
+                        onKeyUp={(e) => {
+                          if (e.key === 'Enter' && this.state.otherInputValue !== '') {
+                            this.editLine(task.id)
+                          }
+                        }}
+                        value={this.state.disabled ? task.value : this.state.otherInputValue}
+                        disabled={(this.state.disabled) ? "disabled" : ""}></input>
                     </div>
                     <div>
-                      <button id='editButton' onClick={this.editLine}><i class="fas fa-edit"></i></button>
+                      <button id='editButton' onClick={() => this.editLine(task.id)}><i class="fas fa-edit"></i></button>
                       <button id="removeButton" onClick={() => this.removeLine(task.id)}><i class="fas fa-trash"></i></button>
                     </div>
                   </li>
@@ -102,8 +124,8 @@ class Teste extends React.Component {
               )
             })}
           </ul>
-        </div>
-      </div>
+        </div >
+      </div >
     )
   }
 }
