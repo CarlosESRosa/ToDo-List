@@ -9,4 +9,4 @@
     - LocalStorage
 
 ### `Final result looks like`
-![Project Gif](./prototipo.gif)
+![Project Gif](./src/video-final-result.mp4)
