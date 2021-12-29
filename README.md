@@ -1,4 +1,4 @@
-# Project To-do-list using React
+# Project To-do-list in React
 
 ### Skills involved
 - HTML, CSS and JavaScript.
