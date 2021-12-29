@@ -68,20 +68,31 @@ h1 {
   background-color: #e0e0e0;
 }
 
-.element-list span{
+.element-list #input-text{
   flex: 1 1 0%;
   font-size: 1.125rem;
   margin: 0 10px;
+  border: none;
+  outline: none;
 }
 
-.element-list button {
+.element-list #removeButton {
   cursor: pointer;
   font-size: 1.125rem;
   color: #FF0000;
   background: none;
   border: none;
-  
 }
+
+.element-list #editButton {
+  cursor: pointer;
+  font-size: 1.125rem;
+  color: #35793B;
+  background: none;
+  border: none;
+  margin: 0px 10px;
+}
+
 
 .isCompleted {
   text-decoration: line-through;

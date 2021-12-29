@@ -14,6 +14,7 @@ class Teste extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.removeLine = this.removeLine.bind(this);
     this.handleCheckTask = this.handleCheckTask.bind(this);
+    this.editLine = this.editLine.bind(this);
   }
 
   handleChange(event) {
@@ -28,7 +29,6 @@ class Teste extends React.Component {
         myTasks: [...state.myTasks, { value: this.state.inputValue, id: Math.random() }],
         inputValue: '',
       }))
-      console.log(this.state.inputValue);
     }
   }
 
@@ -37,6 +37,11 @@ class Teste extends React.Component {
     this.setState((state) => ({
       myTasks: [...newArray]
     }))
+  }
+
+  editLine(event) {
+    console.log(event.target.disabled);
+    event.target.disabled = !event.target.disabled;
   }
 
   handleCheckTask(id) {
@@ -86,9 +91,12 @@ class Teste extends React.Component {
                         type="checkbox"
                         onClick={() => this.handleCheckTask(task.id)}
                       />
-                      <span>{task.value}</span>
+                      <input id='input-text' type="text" value={task.value} disabled={true}></input>
                     </div>
-                    <button onClick={() => this.removeLine(task.id)}><i class="fas fa-trash"></i></button>
+                    <div>
+                      <button id='editButton' onClick={this.editLine}><i class="fas fa-edit"></i></button>
+                      <button id="removeButton" onClick={() => this.removeLine(task.id)}><i class="fas fa-trash"></i></button>
+                    </div>
                   </li>
                 </div>
               )
