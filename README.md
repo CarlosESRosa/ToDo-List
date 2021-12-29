@@ -8,5 +8,4 @@
     - State
     - LocalStorage
 
-### `Final result looks like`
-![Project Gif](./src/video-final-result.mp4)
+### Final result looks like
