@@ -53,7 +53,7 @@ class Teste extends React.Component {
 
   render() {
     return (
-      <div className='todo-list'>
+      <div className=''>
         <header className='input-container'>
           <h1>My to.do list</h1>
           <div className='inputs'>
