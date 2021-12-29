@@ -28,27 +28,29 @@ class Teste extends React.Component {
 
   handleClick() {
     if (this.state.inputValue !== '') {
-      this.setState((state) => ({
-        myTasks: [...state.myTasks, { value: this.state.inputValue, id: Math.random() }],
-        inputValue: '',
-      }))
+      this.setState((state) => {
+        return {
+          myTasks: [...state.myTasks, { value: this.state.inputValue, id: Math.random() }],
+          inputValue: '',
+        }
+      })
     }
   }
 
   removeLine(id) {
     const newArray = this.state.myTasks.filter((task) => task.id !== id)
     this.setState((state) => ({
-      myTasks: [...newArray]
+      myTasks: [...newArray],
     }))
   }
 
   editLine(id) {
+    const changingTask = this.state.myTasks.find((task) => task.id === id)
+    changingTask.value = this.state.otherInputValue;
     this.setState({
       disabled: !this.state.disabled,
       otherInputValue: '',
     })
-    const changingTask = this.state.myTasks.find((task) => task.id === id)
-    changingTask.value = this.state.otherInputValue;
   }
 
   editHandleChange(event) {
@@ -66,13 +68,26 @@ class Teste extends React.Component {
     this.setState((state) => ({
       myTasks: [...checkedTasks],
     }))
+
+  }
+
+  componentDidMount() { // window.onload
+    if (localStorage.getItem("myList") !== null) { // caso o localStorage esteja vazio não roda
+      this.setState({
+        myTasks: JSON.parse(localStorage.getItem("myList")),
+      })
+    }
+  }
+
+  componentDidUpdate() { // roda sempre que atualiza o state
+    localStorage.setItem("myList", JSON.stringify(this.state.myTasks));
   }
 
   render() {
     return (
-      <div className=''>
+      <div>
         <header className='input-container'>
-          <h1>My to.do list</h1>
+          <h1><span id='header-todo'>TO.DO</span> List</h1>
           <div className='add-element'>
             <input
               onChange={this.handleChange}
@@ -93,8 +108,8 @@ class Teste extends React.Component {
           <ul>
             {this.state.myTasks.map((task) => {
               return (
-                <div >
-                  <li key={task.id}>
+                <div key={task.id}>
+                  <li>
                     <div
                       className={task.isCompleted ? 'isCompleted' : ''}
                       data-task="task"
@@ -116,8 +131,8 @@ class Teste extends React.Component {
                         disabled={(this.state.disabled) ? "disabled" : ""}></input>
                     </div>
                     <div>
-                      <button id='editButton' onClick={() => this.editLine(task.id)}><i class="fas fa-edit"></i></button>
-                      <button id="removeButton" onClick={() => this.removeLine(task.id)}><i class="fas fa-trash"></i></button>
+                      <button id='editButton' onClick={() => this.editLine(task.id)}><i className="fas fa-edit"></i></button>
+                      <button id="removeButton" onClick={() => this.removeLine(task.id)}><i className="fas fa-trash"></i></button>
                     </div>
                   </li>
                 </div>
