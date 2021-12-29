@@ -6,7 +6,7 @@
     - Components
     - Props
     - State
-    - LocalStorage
+    - Web Storage
 
 ### Final result looks like
 ![image result](result.png)
