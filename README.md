@@ -9,3 +9,4 @@
     - LocalStorage
 
 ### Final result looks like
+![image result](result.png)
